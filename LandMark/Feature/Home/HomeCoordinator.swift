@@ -34,11 +34,15 @@ class HomeCoordinator: Coordinator {
     }
     
     func navigateToPinListPage() {
-        let vm = PinListView.ViewModel()
+        let vm = PinListView.ViewModel(coordinator: self)
         let view = PinListView(viewModel: vm)
         let hostingController = UIHostingController(rootView: view)
         
         navigationController.pushViewController(hostingController, animated: false)
-        
     }
+}
+
+// exploring how each page could have its own implementation for its navigations flow
+extension HomeCoordinator: PinListView.CoordinatorProtocol {
+    
 }

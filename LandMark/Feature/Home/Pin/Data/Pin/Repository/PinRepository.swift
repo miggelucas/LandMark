@@ -5,31 +5,33 @@
 //  Created by Lucas Migge on 31/10/24.
 //
 
-import CoreData
 
-//class PinRepository: DataRepositoryProtocol {
-//    typealias Entity = Pin
-//    
-//    let dataSorce: PersistenceController = .shared
-//    
-//    func create(_ entity: Pin) {
-//        <#code#>
-//    }
-//    
-//    func fetchAll() -> [Pin] {
-//        <#code#>
-//    }
-//    
-//    func fetch(byID id: NSManagedObjectID) -> Pin? {
-//    
-//    }
-//    
-//    func update(_ entity: Pin) {
-//        <#code#>
-//    }
-//    
-//    func delete(_ entity: Pin) {
-//        <#code#>
-//    }
-//
-//}
+protocol PinRepositoryProtocol {
+    func fetchPins() -> [Pin]
+    func savePin(_ pin: Pin)
+    func deletePin(_ pin: Pin)
+}
+
+class PinRepository: PinRepositoryProtocol {
+    let dataSource: CoreDataDataSource<CDPin>
+    
+    init(dataSource: CoreDataDataSource<CDPin> = CoreDataDataSource()) {
+        self.dataSource = dataSource
+    }
+    
+    func fetchPins() -> [Pin] {
+        let cdpins = dataSource.fetchAll()
+        return cdpins.map { Pin(cdpin: $0) }
+    }
+    
+    func savePin(_ pin: Pin) {
+        let cdpin = CDPin(context: dataSource.context)
+        cdpin.update(with: pin, in: dataSource.context)
+        dataSource.create(cdpin)
+    }
+    
+    func deletePin(_ pin: Pin) {
+        guard let cdpin = dataSource.fetchAll().first(where: { $0.id == pin.id }) else { return }
+        dataSource.delete(cdpin)
+    }
+}

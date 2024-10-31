@@ -13,3 +13,12 @@ struct Pin: Identifiable {
     let latitude: Double
     let longitude: Double
 }
+
+extension Pin {
+    init(cdpin: CDPin) {
+        self.id = cdpin.id ?? UUID()
+        self.createdAt = cdpin.createdAt ?? Date()
+        self.latitude = cdpin.latitude
+        self.longitude = cdpin.longitude
+    }
+}

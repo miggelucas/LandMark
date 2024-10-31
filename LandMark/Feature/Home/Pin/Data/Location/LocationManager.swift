@@ -38,7 +38,6 @@ class LocationManager: NSObject, CLLocationManagerDelegate, ObservableObject, Lo
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else { return }
-        print("Localização atual: \(location.coordinate.latitude), \(location.coordinate.longitude)")
         self.userCoordinate = .init(location: location)
     }
     

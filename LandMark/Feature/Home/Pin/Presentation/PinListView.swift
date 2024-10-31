@@ -5,18 +5,20 @@
 //  Created by Lucas Migge on 31/10/24.
 //
 
-
 import SwiftUI
-
-
 
 struct PinListView: View {
     
     @StateObject var viewModel: Self.ViewModel
     
     var body: some View {
-        List(viewModel.pins) { pin in
+        List($viewModel.pins, editActions: .delete) { $pin in
             self.buildPinRowView(for: pin)
+                .contextMenu {
+                    Button("Delete", role: .destructive) {
+                        viewModel.deletePin(pin)
+                    }
+                }
         }
         .navigationTitle("Pins")
         .toolbar {
@@ -38,28 +40,28 @@ struct PinListView: View {
                     .font(.headline)
                     .foregroundColor(.primary)
                 
-                Text("Created at: \(pin.createdAt.formatted(date: .long, time: .shortened))") // Formatação da data
+                Text("Created at: \(pin.createdAt.formatted(date: .long, time: .shortened))")
                     .font(.subheadline)
                     .foregroundColor(.secondary)
                 
                 HStack {
-                    Text("Lat: \(String(format: "%.6f", pin.latitude))") // Limitar a 6 casas decimais
+                    Text("Lat: \(String(format: "%.6f", pin.latitude))") 
                         .font(.subheadline)
                         .foregroundColor(.secondary)
                     
-                    Text("Lng: \(String(format: "%.6f", pin.longitude))") // Limitar a 6 casas decimais
+                    Text("Lng: \(String(format: "%.6f", pin.longitude))")
                         .font(.subheadline)
                         .foregroundColor(.secondary)
                 }
             }
             
-            Spacer() // Adiciona espaço entre o conteúdo e a borda direita
+            Spacer()
         }
     }
 }
 
 #Preview {
     NavigationStack {
-        PinListView(viewModel: .init())
+        PinListView(viewModel: .init(coordinator: HomeCoordinator(navigationController: .init())))
     }
 }

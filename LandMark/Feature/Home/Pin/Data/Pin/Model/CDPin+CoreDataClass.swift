@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-@objc(Pin)
+@objc(CDPin)
 public class CDPin: NSManagedObject {
 
 }

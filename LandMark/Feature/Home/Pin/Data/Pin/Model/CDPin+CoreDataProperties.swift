@@ -9,7 +9,6 @@
 import Foundation
 import CoreData
 
-
 extension CDPin {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<CDPin> {
@@ -24,5 +23,10 @@ extension CDPin {
 }
 
 extension CDPin : Identifiable {
-
+    func update(with pin: Pin, in context: NSManagedObjectContext) {
+        self.id = pin.id
+        self.createdAt = pin.createdAt
+        self.latitude = pin.latitude
+        self.longitude = pin.longitude
+    }
 }

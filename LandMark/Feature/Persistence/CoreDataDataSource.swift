@@ -1,5 +1,5 @@
 //
-//  DataRepository.swift
+//  CoreDataDataSource.swift
 //  LandMark
 //
 //  Created by Lucas Migge on 31/10/24.
@@ -7,8 +7,8 @@
 
 import CoreData
 
-protocol DataRepositoryProtocol {
-    associatedtype Entity
+protocol CoreDataDataSourceProtocol {
+    associatedtype Entity = NSManagedObject
     func create(_ entity: Entity)
     func fetchAll() -> [Entity]
     func fetch(byID id: NSManagedObjectID) -> Entity?
@@ -16,8 +16,8 @@ protocol DataRepositoryProtocol {
     func delete(_ entity: Entity)
 }
 
-class DataRepository<T: NSManagedObject>: DataRepositoryProtocol {
-    private let context: NSManagedObjectContext
+class CoreDataDataSource<T: NSManagedObject>: CoreDataDataSourceProtocol {
+    let context: NSManagedObjectContext
     
     init(context: NSManagedObjectContext = PersistenceController.shared.container.viewContext) {
         self.context = context
