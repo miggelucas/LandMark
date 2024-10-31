@@ -19,6 +19,10 @@ struct HomePageView: View {
             Button("Press me to try out our totally awesome navigation feature") {
                 viewModel.didTapOnTryMeButton()
             }
+            
+            Button("Press me to go to PinList View and try Location related features") {
+                viewModel.didTapOnPinButton()
+            }
         }
     }
 }

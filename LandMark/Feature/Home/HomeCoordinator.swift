@@ -32,4 +32,13 @@ class HomeCoordinator: Coordinator {
         
         navigationController.pushViewController(hostingController, animated: true)
     }
+    
+    func navigateToPinListPage() {
+        let vm = PinListView.ViewModel()
+        let view = PinListView(viewModel: vm)
+        let hostingController = UIHostingController(rootView: view)
+        
+        navigationController.pushViewController(hostingController, animated: false)
+        
+    }
 }

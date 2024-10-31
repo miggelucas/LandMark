@@ -19,5 +19,9 @@ extension HomePageView {
         func didTapOnTryMeButton() {
             coordinator.navigateToOtherPage()
         }
+        
+        func didTapOnPinButton() {
+            coordinator.navigateToPinListPage()
+        }
     }
 }

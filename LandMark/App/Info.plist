@@ -23,5 +23,9 @@
 	<array>
 		<string>remote-notification</string>
 	</array>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Precisamos da sua localização para mostrar os pins no mapa.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Precisamos da sua localização para mostrar os pins no mapa mesmo quando o app estiver em segundo plano.</string>
 </dict>
 </plist>
